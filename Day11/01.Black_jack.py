@@ -10,12 +10,8 @@ def get_card():
 def play_game():
     my_cards = []
     dealer_cards = []
-    card = get_card()
-    print(f"my card = {card}")
-    my_cards.append(card)
-    card = get_card()
-    print(f"dealer's card = {card}")
-    dealer_cards.append(card)
+    my_cards.append(get_card())
+    dealer_cards.append(get_card())
 
     should_continue = 'y'
     while should_continue == 'y':
@@ -26,19 +22,20 @@ def play_game():
         print(f"Your cards: {my_cards}, current score: {sum(my_cards)}")
         print(f"Computer's first card: {dealer_cards[0]}")
 
-        if (sum(my_cards) > 21):
+        if sum(my_cards) > 21:
             should_continue = 'n'
         else:
-            should_continue = input("Type 'y' to get another card, type 'n' to pass").lower()
+            should_continue = input("Type 'y' to get another card, type 'n' to pass: ").lower()
 
     if sum(dealer_cards) <= 16:
         dealer_cards.append(get_card())
 
-    print(f"Your cards: {my_cards}.\nComputer's cards: {dealer_cards}.")
+    print(f"Your final hand: {my_cards}. Your final score: {sum(my_cards)}")
+    print(f"Computer's final hand: {dealer_cards}. Computer's final score:{sum(dealer_cards)}")
     if sum(my_cards) > 21:
         print("You went over. You lose.")
     elif sum(dealer_cards) > 21:
-        print("Computer went over. You win.")
+        print("Opponent went over. You win.")
     else:
         if sum(my_cards) > sum(dealer_cards):
             print("You win.")
@@ -48,5 +45,8 @@ def play_game():
             print("Draw.")
 
 
-play_game()
+continue_game = input("Do you want to play a game of BlackJack? Type 'y' or 'n': ").lower()
+while continue_game == 'y':
+    play_game()
+    continue_game = input("Do you want to play a game of BlackJack? Type 'y' or 'n': ").lower()
 
