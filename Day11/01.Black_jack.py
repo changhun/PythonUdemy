@@ -7,6 +7,15 @@ def get_card():
     return card
 
 
+#def calc_score(cards:list):
+def calc_score(cards):
+    score = sum(cards)
+    if score > 21 and 11 in cards:
+        cards.remove(11)
+        cards.append(1)
+    return score
+
+
 def play_game():
     my_cards = []
     dealer_cards = []
@@ -18,11 +27,10 @@ def play_game():
         my_cards.append(get_card())
         dealer_cards.append(get_card())
 
-        #print(f"Your cards: {my_cards}, current score: {my_cards.sum()}")
-        print(f"Your cards: {my_cards}, current score: {sum(my_cards)}")
+        print(f"Your cards: {my_cards}, current score: {calc_score(my_cards)}")
         print(f"Computer's first card: {dealer_cards[0]}")
 
-        if sum(my_cards) > 21:
+        if calc_score(my_cards) > 21:
             should_continue = 'n'
         else:
             should_continue = input("Type 'y' to get another card, type 'n' to pass: ").lower()
