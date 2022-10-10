@@ -3,6 +3,7 @@ import random
 
 t.colormode(255)
 
+
 def random_color():
     r = random.choice(range(0, 255))
     g = random.choice(range(0, 255))
@@ -23,10 +24,6 @@ def draw_circle(num):
 tim = t.Turtle()
 tim.speed(0)
 draw_circle(60)
-#tim.circle(20, 180)
-#tim.forward(100)
-#tim.circle(20, 180)
-
 
 screen = t.Screen()
 screen.exitonclick()
