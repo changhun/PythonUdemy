@@ -17,7 +17,7 @@ for i in range(len(positions)):
     segments.append(new_turtle)
 
 # print(f"screen.tracer: {screen.tracer()}")
-# screen.tracer(0)
+screen.tracer(0)
 
 
 def move():
