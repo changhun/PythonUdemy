@@ -12,10 +12,6 @@ snake = snake_class.Snake()
 screen.tracer(0)
 
 
-def move(_snake):
-    _snake.move()
-
-
 def is_game_end(_snake):
     # abs(_snake.xcor() > screen.window_width()/2) 이렇게 해도 될 듯
     if _snake.segments[0].xcor() < -screen.window_width()/2 or _snake.segments[0].xcor() > screen.window_width()/2:
@@ -28,13 +24,14 @@ def is_game_end(_snake):
 
 
 screen.listen()
-#screen.onkey(move, "space")
-screen.onkey(snake.turn_left, "a")
-screen.onkey(snake.turn_right, "d")
+screen.onkey(snake.up, "Up")
+screen.onkey(snake.down, "Down")
+screen.onkey(snake.right, "Right")
+screen.onkey(snake.left, "Left")
 
 end_of_game = False
 while not end_of_game:
-    move(snake)
+    snake.move()
     screen.update()
     if is_game_end(snake):
         end_of_game = True
