@@ -2,18 +2,21 @@ import turtle as t
 import random
 
 
+ALIGN = 'left'
+FONT = ('Arial', 20, 'normal')
+
 # tim = t.Turtle()
-width = 1000
-height = 400
+WIDTH = 1000
+HEIGHT = 400
 
 screen = t.Screen()
 #screen.setup(width=500, height=400)
-screen.setup(width=width, height=height)
+screen.setup(width=WIDTH, height=HEIGHT)
 
-user_bat = screen.textinput(title = "Turtle Game", prompt = "Which turtle win the race? Type color: ")
+user_bat = screen.textinput(title="Turtle Game", prompt="Which turtle win the race? Type color: ")
 print(user_bat)
 
-colors = ["Red", "orange", "yellow", "green", "blue", "indigo", "violet"]
+colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]
 
 turtles = []
 
@@ -82,6 +85,17 @@ def print_winner(_turtles):
         if _turtles[i].xcor() > _turtles[winner].xcor():
             winner = i
     print(f"winner is {colors[winner]}")
+    print(f"turtle's color: {_turtles[winner].color()[0]}")
+    turtle = t.Turtle()
+    turtle.hideturtle()
+    turtle.penup()
+    turtle.goto(-130, 0)
+
+    # turtle.color() returns tuple like ('red', 'red')
+    if user_bat == _turtles[winner].color()[0]:
+        turtle.write(f"Winner is {_turtles[winner].color()[0]}. You win!!", align=ALIGN, font=FONT)
+    else:
+        turtle.write(f"Winner is {_turtles[winner].color()[0]}. You lose.", align=ALIGN, font=FONT)
 
 
 def line_drawing():
@@ -95,12 +109,21 @@ def line_drawing():
     turtle.forward(screen.window_height() - 100)
 
 
+def speed_up():
+    selected_turtle.forward(5)
+    print(f"{selected_turtle.color()} turtle boost up")
+
+
+screen.listen()
+
 line_drawing()
 turtles = create_rainbow_turtles()
 move_turtles_to_starting(turtles)
+
+selected_turtle = turtles[colors.index(user_bat)]
+screen.onkey(speed_up, "a")
 start_race(turtles)
 print_winner(turtles)
-
 
 # 인자 있는 함수를 인자로 받아서 콜해보기.
 #def turtle_forward(turtle):
