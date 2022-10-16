@@ -7,6 +7,7 @@ DOWN = 270
 RIGHT = 0
 LEFT = 180
 
+
 class Snake:
 
     def __init__(self):
@@ -24,7 +25,7 @@ class Snake:
             self.segments.append(new_turtle)
 
     def move(self):
-        print(f"moving. xcor: {self.head.xcor()} ycor: {self.head.ycor()}")
+        #print(f"moving. xcor: {self.head.xcor()} ycor: {self.head.ycor()}")
         for i in range(len(self.segments) - 1, 0, -1):
             xcor = self.segments[i-1].xcor()
             ycor = self.segments[i-1].ycor()
@@ -48,11 +49,17 @@ class Snake:
             self.head.setheading(LEFT)
 
     def feed(self):
-        xcor = 2* self.segments[-1].xcor() - self.segments[-2].xcor()
-        ycor = 2* self.segments[-1].ycor() - self.segments[-2].ycor()
+
         new_turtle = t.Turtle()
         new_turtle.color("white")
         new_turtle.penup()
-        new_turtle.goto(xcor, ycor)
+        # xcor = 2* self.segments[-1].xcor() - self.segments[-2].xcor()
+        # ycor = 2* self.segments[-1].ycor() - self.segments[-2].ycor()
+        #new_turtle.goto(xcor, ycor)
+        new_turtle.goto(self.segments[-1].position())
         new_turtle.shape("square")
         self.segments.append(new_turtle)
+
+    def print_segments(self):
+        for i in range(len(self.segments)):
+            print(f"pos[{i}]: {self.segments[i].position()}")
