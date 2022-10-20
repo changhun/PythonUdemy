@@ -6,7 +6,7 @@ with open("../Input/Names/invited_names.txt") as name_data:
 
 for _name in name_list:
     name = _name.replace("\n", "")
+    #name = _name.strip() # this code can replace the above line
     contents_with_name = mail_contents.replace("[name]", name)
-    #print(contents_with_name)
     with open(f"./ReadyToSend/letter_for_{name}", "w") as letter_file_for_name:
         letter_file_for_name.write(contents_with_name)
