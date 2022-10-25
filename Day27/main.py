@@ -23,6 +23,11 @@ button = tkinter.Button(text="Click Me", command=button_click_event)
 button.pack()
 
 
+text = tkinter.Text(height=5, width=30)
+text.focus()
+text.insert(tkinter.END, "Example of multi-line entry.")
+print(text.get("1.0", tkinter.END))
+text.pack()
 
 
 
