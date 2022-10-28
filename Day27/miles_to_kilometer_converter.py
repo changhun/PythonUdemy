@@ -1,3 +1,9 @@
+# 생각할 부분
+# 1. 각 위젯에 대한 변수명 어떻게 지을지
+# 2. string 으로 변경할 때 fstring 사용. ex) f"{km}"
+# 3. component 의 속성 값을 변경하려면 dictionary 사용하듯이 해야함(실제로 dictionary 인듯).
+# ex) label_miles["text"] = f"{km}" 이런식으로 해줘야 함.
+
 from tkinter import *
 
 MILE_TO_KILOMETER_RATIO = 1.609344
