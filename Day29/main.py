@@ -2,6 +2,7 @@ import tkinter
 from tkinter import messagebox
 import random
 import pyperclip
+import json
 
 WIDTH=45
 
@@ -47,8 +48,16 @@ def save_password():
     is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered\n user: {username}"
                                    f"\npassword: {password}\n Is it ok to save?")
     if is_ok:
-        with open("password_file.txt", "a") as password_file:
-            password_file.write(f"{website} | {username} | {password}\n")
+        new_data = {
+            website: {
+                "user" : username,
+                "password": password
+            }
+        }
+
+        json_file = open("data.json", "w")
+        json.dump(new_data, json_file)
+        json_file.close()
         website_entry.delete(0, "end")
         password_entry.delete(0, "end")
 
