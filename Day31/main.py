@@ -11,15 +11,20 @@ words_dict = data.to_dict(orient="record")
 
 # -------------------------------- Functions --------------------------------- #
 rand_word = {}
+is_front = False
 
 
 def next_card():
+    global is_front
+    if is_front:
+        return
     global rand_word
     rand_word = random.choice(words_dict)
     canvas.itemconfig(language, text="French")
     canvas.itemconfig(word, text=rand_word["French"])
     canvas.itemconfig(canvas_image, image=card_front_image)
     window.after(3000, flip_card)
+    is_front = True
 
 
 def flip_card():
@@ -28,6 +33,8 @@ def flip_card():
     canvas.itemconfig(word, text=rand_word["English"])
     canvas.itemconfig(canvas_image, image=card_back_image)
 
+    global is_front
+    is_front = False
 
 # -------------------------------- UI --------------------------------- #
 window = tkinter.Tk()
