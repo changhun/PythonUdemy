@@ -6,35 +6,46 @@ import random
 BACKGROUND_COLOR = "#B1DDC6"
 
 # -------------------------------- Data load --------------------------------- #
-data = pandas.read_csv("data/french_words.csv")
-words_dict = data.to_dict(orient="record")
+try:
+    data = pandas.read_csv("data/words_to_learn.csv")
+    if len(data) == 0:
+        data = pandas.read_csv("data/french_words.csv")
+except FileNotFoundError:
+    data = pandas.read_csv("data/french_words.csv")
+finally:
+    words_dict = data.to_dict(orient="record")
+    #print(words_dict)
 
 # -------------------------------- Functions --------------------------------- #
 rand_word = {}
-is_front = False
 
 
 def next_card():
-    global is_front
-    if is_front:
-        return
-    global rand_word
+    global rand_word, flip_time
+    window.after_cancel(flip_time)
     rand_word = random.choice(words_dict)
-    canvas.itemconfig(language, text="French")
-    canvas.itemconfig(word, text=rand_word["French"])
+    canvas.itemconfig(language, text="French", fill="Black")
+    canvas.itemconfig(word, text=rand_word["French"], fill="Black")
     canvas.itemconfig(canvas_image, image=card_front_image)
-    window.after(3000, flip_card)
-    is_front = True
+    flip_time = window.after(3000, flip_card)
 
 
 def flip_card():
     global rand_word
-    canvas.itemconfig(language, text="English")
-    canvas.itemconfig(word, text=rand_word["English"])
+    canvas.itemconfig(language, text="English", fill="White")
+    canvas.itemconfig(word, text=rand_word["English"], fill="White")
     canvas.itemconfig(canvas_image, image=card_back_image)
 
-    global is_front
-    is_front = False
+
+def remove_card():
+    global rand_word
+    words_dict.remove(rand_word)
+    #print(len(words_dict))
+    next_card()
+    words_dataframe = pandas.DataFrame(words_dict)
+    # dataframe 을 csv 로 저장할 때 index 는 생성하지 않도록 한다.
+    words_dataframe.to_csv("data/words_to_learn.csv", index=False)
+
 
 # -------------------------------- UI --------------------------------- #
 window = tkinter.Tk()
@@ -56,10 +67,10 @@ wrong_button = tkinter.Button(image=wrong_image, highlightthickness=0, command=n
 wrong_button.grid(row=1, column=0)
 
 right_image = tkinter.PhotoImage(file="images/right.png")
-right_button = tkinter.Button(image=right_image, highlightthickness=0, command=next_card)
+right_button = tkinter.Button(image=right_image, highlightthickness=0, command=remove_card)
 right_button.grid(row=1, column=1)
 
-is_front = False
-next_card()
+#next_card()
+flip_time = window.after(0, next_card)
 
 window.mainloop()
