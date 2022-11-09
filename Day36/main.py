@@ -1,5 +1,5 @@
 import requests
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 STOCK_NAME = "TSLA"
 COMPANY_NAME = "Tesla Inc"
@@ -7,6 +7,9 @@ COMPANY_NAME = "Tesla Inc"
 STOCK_ENDPOINT = "https://www.alphavantage.co/query"
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
 STOCK_API_KEY = ""
+
+START_TIME = "04:30:00"
+END_TIME = "20:00:00"
 
 
     ## STEP 1: Use https://www.alphavantage.co/documentation/#daily
@@ -28,13 +31,27 @@ print(response)
 data = response.json()
 print(data)
 time_series = data["Time Series (30min)"]
-data_list = [{key: value} for (key, value) in time_series.items()]
-print(data_list)
 
-now = datetime.now(timezone.utc).strftime('%Y-%m-%d')
-print(now)
+"""
+cur_date = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+today_first_time = f"{cur_date} {START_TIME}"
+yesterday_date = (datetime.now(timezone.utc) - timedelta(1)).strftime('%Y-%m-%d')
+yesterday_last_time = f"{yesterday_date} {END_TIME}"
+"""
+# following code use data of yesterday and the day before yesterday
+cur_date = (datetime.now(timezone.utc) - timedelta(1)).strftime('%Y-%m-%d')
+today_first_time = f"{cur_date} {START_TIME}"
+yesterday_date = (datetime.now(timezone.utc) - timedelta(2)).strftime('%Y-%m-%d')
+yesterday_last_time = f"{yesterday_date} {END_TIME}"
 
+print(today_first_time)
+print(yesterday_last_time)
+today_first_data = time_series[today_first_time]
+yesterday_last_data = time_series[yesterday_last_time]
+print(today_first_data)
+print(yesterday_last_data)
 
+print(f"today open value - yesterday close value = {float(today_first_data['1. open']) - float(yesterday_last_data['4. close'])}")
 
 #TODO 2. - Get the day before yesterday's closing stock price
 
