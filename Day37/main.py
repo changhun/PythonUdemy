@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime, timedelta
 
 API_ENDPOINT = "https://pixe.la/v1/users"
 USER = "changhun"
@@ -35,5 +36,23 @@ params = {
     "color": "sora"
 }
 
-response = requests.post(POST_API_ENDPOINT, json=params, headers=header)
+# response = requests.post(POST_API_ENDPOINT, json=params, headers=header)
+# print(response.text)
+     
+
+# POST PIXEL
+# https://pixe.la/v1/users/a-know/graphs/test-graph -H 'X-USER-TOKEN:thisissecret' -d '{"date":"20180915","quantity":"5","optionalData":"{\"key\":\"value\"}"}'
+
+PIXEL_CREATE_API_ENDPOINT = f"https://pixe.la/v1/users/{USER}/graphs/graph1"
+cur_date = datetime.now().strftime("%Y%m%d")
+yesterday = (datetime.now() - timedelta(1)).strftime("%Y%m%d")
+print(cur_date)
+
+create_pixel_param = {
+    "date": cur_date,
+    "quantity": "1"
+}
+
+response = requests.post(PIXEL_CREATE_API_ENDPOINT, json=create_pixel_param, headers=header)
+print(response)
 print(response.text)
