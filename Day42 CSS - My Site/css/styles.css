@@ -1,0 +1,83 @@
+body {
+  background-color: white;
+  margin: 0;
+  text-align: center;
+}
+
+div {
+  background-color: #CFF5E7
+}
+
+h1 {
+  margin: 0;
+  /*
+  width:20%
+  margin: 0 auto
+  */
+}
+
+p {
+  margin-bottom: 0
+}
+
+/******************** CLASS Selector **********************/
+
+.top-container {
+  padding: 20px;
+}
+
+.mid-item {
+  background-color: red;
+  width: 200px;
+  height: 200px;
+}
+
+.bottom-item {
+  background-color: blue;
+  width: 200px;
+  height: 200px;
+}
+
+.top-cloud {
+  padding-top: 20px;
+  position: relative;
+  left: 300px;
+  
+  /*
+  position: absolute;
+  right: 300px;
+  top: 50px;
+  */
+}
+
+.bottom-cloud {
+  position: absolute;
+  left: 400px;
+}
+
+
+/*
+.top-container {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  position: absolute;
+  left: 200px;
+  top: 200px;
+}
+
+.mid-container {
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+  position: absolute;
+  top: 100px;
+  left: 100px;
+}
+
+.bottom-container {
+  width: 100px;
+  height: 100px;
+  background-color: yellow;
+}
+*/
