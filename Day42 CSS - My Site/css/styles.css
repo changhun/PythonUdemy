@@ -10,6 +10,7 @@ div {
 
 h1 {
   margin: 0;
+  font-family: 'Sacramento', cursive;
   /*
   width:20%
   margin: 0 auto
@@ -42,7 +43,7 @@ p {
   padding-top: 20px;
   position: relative;
   left: 300px;
-  
+
   /*
   position: absolute;
   right: 300px;
