@@ -1,3 +1,4 @@
+"""
 import TOKEN
 from bs4 import BeautifulSoup
 import requests
@@ -22,3 +23,20 @@ for title in titles:
 
 
 print(TOKEN.CLIENT_ID)
+"""
+import TOKEN
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
+
+sp = spotipy.Spotify(
+    auth_manager=SpotifyOAuth(
+        scope="playlist-modify-private",
+        redirect_uri="http://example.com",
+        client_id=TOKEN.CLIENT_ID,
+        client_secret=TOKEN.CLIENT_SECRET,
+        show_dialog=True,
+        cache_path="token.txt"
+    )
+)
+user_id = sp.current_user()["id"]
+print(user_id)
