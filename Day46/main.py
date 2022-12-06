@@ -1,4 +1,3 @@
-"""
 import TOKEN
 from bs4 import BeautifulSoup
 import requests
@@ -16,15 +15,16 @@ soup = BeautifulSoup(content, "html.parser")
 title_tags = soup.select("li h3")
 
 titles = [tag.getText() for tag in title_tags[0:100]]
+song_names = []
 i = 0
 for title in titles:
     print(i, title.strip())
     i += 1
+    song_names.append(title.strip())
 
+#print(TOKEN.CLIENT_ID)
 
-print(TOKEN.CLIENT_ID)
-"""
-import TOKEN
+#import TOKEN
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
@@ -38,5 +38,19 @@ sp = spotipy.Spotify(
         cache_path="token.txt"
     )
 )
+#user_id = sp.current_user()["id"]
+#print(user_id)
 user_id = sp.current_user()["id"]
-print(user_id)
+#date = input("Which year do you want to travel to? Type the date in this format YYYY-MM-DD: ")
+#song_names = ["The list of song", "titles from your", "web scrape"]
+
+song_uris = []
+year = date.split("-")[0]
+for song in song_names:
+    result = sp.search(q=f"track:{song} year:{year}", type="track")
+    print(result)
+    try:
+        uri = result["tracks"]["items"][0]["uri"]
+        song_uris.append(uri)
+    except IndexError:
+        print(f"{song} doesn't exist in Spotify. Skipped.")
