@@ -38,11 +38,8 @@ sp = spotipy.Spotify(
         cache_path="token.txt"
     )
 )
-#user_id = sp.current_user()["id"]
-#print(user_id)
+
 user_id = sp.current_user()["id"]
-#date = input("Which year do you want to travel to? Type the date in this format YYYY-MM-DD: ")
-#song_names = ["The list of song", "titles from your", "web scrape"]
 
 song_uris = []
 year = date.split("-")[0]
@@ -54,3 +51,9 @@ for song in song_names:
         song_uris.append(uri)
     except IndexError:
         print(f"{song} doesn't exist in Spotify. Skipped.")
+
+play_list = sp.user_playlist_create(user_id, f"{date} Billboard 100", public=True)
+sp.playlist_add_items(play_list, song_uris)
+
+
+
